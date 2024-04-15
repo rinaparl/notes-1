@@ -3,63 +3,68 @@ import PropTypes from 'prop-types';
 import { HiCheck } from "react-icons/hi";
 
 class NoteInput extends React.Component {
-  state = {
-    id: Date.now(),
-    title: "",
-    body: "",
-    archived: false,
-    createdAt: Date.now(),
-  };
+  constructor(props) {
+    super(props);
 
-  handleTitleChange = (event) => {
-    const title = event.target.value.slice(0, 40);
-    this.setState({ title });
-  };
-
-  handleBodyChange = (event) => {
-    this.setState({ body: event.target.value });
-  };
-
-  handleSubmit = (event) => {
-    event.preventDefault();
-    const { title, body } = this.state;
-
-    if (!title || !body) {
-      alert("Judul dan catatan harus diisi");
-      return;
-    }
-
-    this.props.addNote({
-      ...this.state,
+    this.state = {
       id: Date.now(),
+      title: "",
+      body: "",
+      archived: false,
       createdAt: Date.now(),
+  }
+  this.onTitleChangeEventHandler = this.onTitleChangeEventHandler.bind(this);
+  this.onBodyChangeEventHandler = this.onBodyChangeEventHandler.bind(this);
+  this.onSubmitEventHandler = this.onSubmitEventHandler.bind(this);
+  }
+
+  onTitleChangeEventHandler(event) {
+    this.setState(() => {
+      return {
+        title: event.target.value,
+      }
     });
-  };
+  }
+
+  onBodyChangeEventHandler(event) {
+    this.setState(() => {
+      return {
+        body: event.target.value,
+      }
+    });
+  }
+
+  onSubmitEventHandler(event) {
+    event.preventDefault();
+    this.props.addNote(this.state);
+  }
+
 
   render() {
     return (
-      <form className="note-input" onSubmit={this.handleSubmit}>
+      <form className="note-input" onSubmit={this.onSubmitEventHandler}>
         <div className="add-new-page__input">
         <input
           className="add-new-page__input__title"
           type="text"
           placeholder="Catatan Rahasia"
           value={this.state.title}
-          onChange={this.handleTitleChange}
+          onChange={this.onTitleChangeEventHandler}
         />
         </div>
         
         <div className="add-new-page__input__body">
         <input
           placeholder="Sebenarnya saya adalah ..."
+          type="text"
           value={this.state.body}
-          onChange={this.handleBodyChange}
+          onChange={this.onBodyChangeEventHandler}
         />
         </div>
         <div className="add-new-page__action">
           <button
            className="action"
-           type="button"
+           type="Submit"
            title="Simpan">
             <HiCheck />
            </button>

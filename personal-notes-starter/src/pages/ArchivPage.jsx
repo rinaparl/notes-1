@@ -2,7 +2,7 @@ import React from "react";
 import { useSearchParams } from "react-router-dom";
 import NoteList from "../components/Notes/NoteList";
 import SearchBar from "../components/SearchBar";
-import { getArchivedNotes } from "../utils/local-data";
+import { getArchivedNotes, deleteNote } from "../utils/local-data";
 import NoteListEmpty from "../components/Notes/NoteListEmpty";
 
 function ArchivPageWrapper() {
@@ -27,6 +27,15 @@ class ArchivPage extends React.Component {
     };
 
     this.onKeywordChangeHandler = this.onKeywordChangeHandler.bind(this);
+    this.onDeleteHandler = this.onDeleteHandler.bind(this);
+    this.onUpdateArchive = this.onUpdateArchive.bind(this);
+  }
+
+  onDeleteHandler(id) {
+    deleteNote(id);
+    this.setState((prevState) => ({
+      notes: prevState.notes.filter((note) => note.id !== id),
+    }));
   }
 
   onUpdateArchive(id) {

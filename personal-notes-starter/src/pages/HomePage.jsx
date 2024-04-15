@@ -2,7 +2,7 @@ import React from "react";
 import { useSearchParams } from "react-router-dom";
 import NoteList from "../components/Notes/NoteList";
 import SearchBar from "../components/SearchBar";
-import { deleteNote, getAllNotes } from "../utils/local-data";
+import { deleteNote, getAllNotes, getActiveNotes, getArchivedNotes, getNote } from "../utils/local-data";
 import NavAdd from "../components/layout/NavAdd";
 
 function HomePageWrapper() {
@@ -23,6 +23,8 @@ class HomePage extends React.Component {
 
     this.state = {
       notes: getAllNotes(),
+      isArchive: getActiveNotes(),
+      isArchived: getArchivedNotes(),
       keyword: props.defaultKeyword || "",
     };
 
@@ -75,7 +77,7 @@ class HomePage extends React.Component {
         .includes(this.state.keyword.toLowerCase());
     });
 
-    function dataNotes(bool) {
+    function ArchiveNote(bool) {
       const filteredNotes = data.filter(
         (item) =>
           item.archived === bool &&
