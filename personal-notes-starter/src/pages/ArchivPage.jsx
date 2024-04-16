@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import { useSearchParams } from "react-router-dom";
 import NoteList from "../components/Notes/NoteList";
 import SearchBar from "../components/SearchBar";
@@ -100,5 +101,10 @@ class ArchivPage extends React.Component {
     );
   }
 }
+
+ArchivPage.propTypes = {
+  keyword: PropTypes.string,
+  keywordChange: PropTypes.func.isRequired,
+};
 
 export default ArchivPageWrapper;

@@ -13,6 +13,7 @@ function NoteItemContent({ title, date, body }) {
 
 NoteItemContent.propTypes = {
   title: PropTypes.string.isRequired,
+  date: PropTypes.string.isRequired,
   body: PropTypes.string.isRequired,
 }
 

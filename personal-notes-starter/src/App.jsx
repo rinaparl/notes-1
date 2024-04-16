@@ -6,6 +6,7 @@ import HomePage from "./pages/HomePage";
 import AddPage from "./pages/AddPage";
 import ArchivPageWrapper from "./pages/ArchivPage";
 import NotFound from "./pages/NotFound";
+import NoteDetailPage from "./pages/NoteDetailPage";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/archives" element={<ArchivPageWrapper />} />
           <Route path="/notes/new" element={<AddPage />} />
+          <Route path="/notes/:id" element={<NoteDetailPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>

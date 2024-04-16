@@ -1,8 +1,9 @@
 import React from "react";
+import PropTypes, { func } from 'prop-types'; 
 import { useSearchParams } from "react-router-dom";
 import NoteList from "../components/Notes/NoteList";
 import SearchBar from "../components/SearchBar";
-import { deleteNote, getAllNotes, getActiveNotes, getArchivedNotes, getNote } from "../utils/local-data";
+import { getAllNotes, getActiveNotes, getArchivedNotes } from "../utils/local-data";
 import NavAdd from "../components/layout/NavAdd";
 
 function HomePageWrapper() {
@@ -22,9 +23,9 @@ class HomePage extends React.Component {
     super(props);
 
     this.state = {
-      notes: getAllNotes(),
+      notes: [],
       isArchive: getActiveNotes(),
-      isArchived: getArchivedNotes(),
+      isArchived: false,
       keyword: props.defaultKeyword || "",
     };
 
@@ -32,6 +33,16 @@ class HomePage extends React.Component {
     this.onAddNoteHandler = this.onAddNoteHandler.bind(this);
     this.onUpdateArchive = this.onUpdateArchive.bind(this);
     this.onKeywordChangeHandler = this.onKeywordChangeHandler.bind(this);
+    
+  }
+
+  componentDidMount() {
+    this.loadNotes(); 
+  }
+
+  loadNotes() {
+    const notes = this.state.isArchivedVisible ? getArchivedNotes() : getAllNotes(); // Memuat catatan yang sesuai dengan status isArchivedVisible
+    this.setState({ notes });
   }
 
   onDeleteHandler(id) {
@@ -39,10 +50,10 @@ class HomePage extends React.Component {
     this.setState({ notes });
   }
 
-  onUpdateArchive(id) {
+  onUpdateArchive = (id) => {
     const notes = this.state.notes;
     const indexData = notes.findIndex((note) => note.id === id);
-
+  
     if (notes[indexData].archived) {
       notes[indexData].archived = false;
       this.setState({ notes: notes });
@@ -51,8 +62,8 @@ class HomePage extends React.Component {
       this.setState({ notes: notes });
     }
   }
-
-  onAddNoteHandler(data) {
+  
+  onAddNoteHandler = (data) => {
     this.setState((prevState) => {
       return {
         notes: [...prevState.notes, data],
@@ -68,6 +79,15 @@ class HomePage extends React.Component {
     });
 
     this.props.keywordChange(keyword);
+  }
+
+  toggleArchivedVisibility() {
+    this.setState(
+      (prevState) => ({ isArchivedVisible: !prevState.isArchivedVisible }),
+      () => {
+        this.loadNotes(); 
+      }
+    );
   }
 
   render() {
@@ -109,5 +129,10 @@ class HomePage extends React.Component {
     );
   }
 }
+
+HomePage.propTypes = {
+  keyword: PropTypes.string,
+  keywordChange: PropTypes.func.isRequired,
+};
 
 export default HomePageWrapper;
