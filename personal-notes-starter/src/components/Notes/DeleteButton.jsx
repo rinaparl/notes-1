@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FiDelete } from 'react-icons/fi';
+import { HiOutlineTrash } from 'react-icons/hi';
 
 function DeleteButton({ id, onDelete }) {
-  return <button className='note-item__delete' onClick={() => onDelete(id)}><FiDelete /></button>
+  return <button className='note-item__delete' onClick={() => onDelete(id)}><HiOutlineTrash /></button>
 }
  
 DeleteButton.propTypes = {

@@ -1,10 +1,11 @@
 import React from "react";
 import PropTypes from 'prop-types';
+import { BiArchiveIn } from 'react-icons/bi';
 
 function ArchiveButton({ id, onUpdate }) {
   return (
     <button className="note-item__archive-button" onClick={() => onUpdate(id)}>
-      Arsipkan
+      <BiArchiveIn />
     </button>
   );
 }

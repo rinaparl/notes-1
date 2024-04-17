@@ -1,9 +1,9 @@
 import React from "react";
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import NoteItemContent from "./NoteItemContent";
 import NoteItemAction from "./NoteItemAction";
 import { showFormattedDate } from "../../utils";
-
 
 function NoteItem({ title, body, id, createdAt, onDelete, onUpdate }) {
   const formattedDate = showFormattedDate(createdAt);
@@ -11,7 +11,7 @@ function NoteItem({ title, body, id, createdAt, onDelete, onUpdate }) {
   return (
     <div className="note-item">
       <NoteItemContent
-        title={title}
+        title={<Link to={`/notes/${id}`}>{title}</Link>}
         body={body}
         date={formattedDate}
       />

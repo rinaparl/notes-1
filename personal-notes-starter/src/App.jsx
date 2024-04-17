@@ -6,7 +6,6 @@ import HomePage from "./pages/HomePage";
 import AddPage from "./pages/AddPage";
 import ArchivPageWrapper from "./pages/ArchivPage";
 import NotFound from "./pages/NotFound";
-import NoteDetailPage from "./pages/NoteDetailPage";
 
 function App() {
   return (
